@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import './App.css'
+import CrudApp from './Pages/admin'
 
 function App() {
-
-
   return (
     <>
-      <h1>Login page </h1>
+      <CrudApp />
     </>
   )
 }
