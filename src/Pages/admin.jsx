@@ -7,6 +7,7 @@ const CrudApp = () => {
     })
 
     const [newItem, setNewItems] = useState('')
+    const [edit, seteditIndex] = useState(null)
 
     useEffect(() => {
         localStorage.setItem('items', JSON.stringify(items));
@@ -23,10 +24,20 @@ const CrudApp = () => {
 
     }
 
+    const deleteItem = (index) => {
+        setItems(items.filter((_, i) =>
+            i !== index
+        ))
+    }
+
+    const Editing = (index) => {
+        seteditIndex(index);
+        setNewItems(items[index])
+    }
+
     return (
         <>
             <h1>Crud Opreation </h1>
-
             <input
                 type="text"
                 value={newItem}
@@ -38,6 +49,9 @@ const CrudApp = () => {
                 {items.map((items, i) => (
                     <li li key={i} >
                         {items}
+                        <button onClick={() => { deleteItem(i) }}>delete</button>
+                        |
+                        <button onClick={() => { Editing(i) }}>Edit</button>
                     </li>
                 ))}
             </div>
