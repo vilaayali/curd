@@ -15,6 +15,7 @@ const CrudApp = () => {
 
     const handelChange = ((e) => setNewItems(e.target.value))
 
+    // function for add new items 
     const additems = () => {
         if (!newItem) {
             return;
@@ -23,16 +24,27 @@ const CrudApp = () => {
         setNewItems("")
 
     }
-
+    // .filter creates a new array in which the selected index item is not added 
     const deleteItem = (index) => {
         setItems(items.filter((_, i) =>
             i !== index
         ))
     }
 
-    const Editing = (index) => {
-        seteditIndex(index);
+    const Edititem = (index) => {
+        seteditIndex(index)
         setNewItems(items[index])
+    }
+
+
+    const Update = () => {
+        const updatedItems = items.map((item, index) =>
+            index === edit ? newItem : item)
+
+        setItems(updatedItems);
+        seteditIndex(null)
+        setNewItems('')
+
     }
 
     return (
@@ -44,14 +56,16 @@ const CrudApp = () => {
                 placeholder="Write here"
                 onChange={handelChange}
             />
-            <button onClick={additems} >Enter</button>
+            <button onClick={edit !== null ? Update : additems}>{edit !== null ? "Update" : "Add"}</button>
+
+
             <div>
                 {items.map((items, i) => (
                     <li li key={i} >
                         {items}
                         <button onClick={() => { deleteItem(i) }}>delete</button>
                         |
-                        <button onClick={() => { Editing(i) }}>Edit</button>
+                        <button onClick={() => { Edititem(i) }}>Edit</button>
                     </li>
                 ))}
             </div>
